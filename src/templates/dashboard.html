@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        @font-face {
+            font-family: 'Agile';
+            src: url("{{ url_for('static', filename='fonts/agile.otf') }}") format('opentype');
+        }
+        .logo-font {
+            font-family: 'Agile', sans-serif;
+        }
+    </style>
+    <title>Dashboard - Ecosystem IO</title>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 h-16 bg-white bg-opacity-95 shadow-sm z-50 px-6">
+        <div class="max-w-7xl mx-auto h-full flex items-center justify-between">
+            <!-- Logo Section -->
+            <div class="flex items-center">
+                <a href="/" class="flex items-center gap-2">
+                    <div class="w-8 h-8 flex items-center justify-center">
+                        <i class="ri-leaf-line text-primary ri-2x"></i>
+                    </div>
+                    <h1 class="logo-font text-2xl text-primary">Ecosystem IO</h1>
+                </a>
+            </div>
+            
+            <!-- Profile Section -->
+            <div class="flex items-center space-x-4">
+                <button type="button" class="flex items-center space-x-3" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown">
+                    <img class="w-8 h-8 rounded-full" src="{{ user.picture }}" alt="user photo">
+                    <div class="flex items-center">
+                        <span class="font-medium text-gray-900">{{ user.name }}</span>
+                        <div class="mx-3 h-4 w-px bg-gray-300"></div>
+                        <span class="text-sm text-gray-600">{{ user.email }}</span>
+                    </div>
+                    <i class="ri-arrow-down-s-line text-gray-400"></i>
+                </button>
+                <!-- Dropdown menu -->
+                <div class="hidden absolute right-6 mt-32 w-48 bg-white rounded-lg shadow-lg py-1" id="user-dropdown">
+                    <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                    <div class="h-px bg-gray-200 my-1"></div>
+                    <a href="/logout" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Sign out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-20">
+        {% extends "base.html" %}
+
+        {% block title %}Dashboard{% endblock %}
+
+        {% block content %}
+        <div class="max-w-7xl mx-auto px-6 py-8">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h3 class="font-semibold mb-2">Profile Information</h3>
+                        <div class="space-y-2">
+                            <p><span class="text-gray-600">Name:</span> {{ user.name }}</p>
+                            <p><span class="text-gray-600">Email:</span> {{ user.email }}</p>
+                            <p><span class="text-gray-600">User ID:</span> {{ user.sub }}</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h3 class="font-semibold mb-2">Account Settings</h3>
+                        <div class="space-y-2">
+                            <a href="#" class="text-primary hover:text-primary/90">Edit Profile</a>
+                            <br>
+                            <a href="#" class="text-primary hover:text-primary/90">Security Settings</a>
+                            <br>
+                            <a href="/logout" class="text-red-600 hover:text-red-700">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+</body>
+</html>
